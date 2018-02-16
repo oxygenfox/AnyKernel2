@@ -4,20 +4,16 @@
 ## AnyKernel setup
 # begin properties
 properties() {
-kernel.string=
+kernel.string=KudKernel by krasCGQ @ xda-developers
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
-do.cleanuponabort=0
-device.name1=
-device.name2=
-device.name3=
-device.name4=
-device.name5=
+do.cleanuponabort=1
+device.name1=mido
 } # end properties
 
 # shell variables
-block=;
+block=/dev/block/mmcblk0p21;
 is_slot_device=0;
 ramdisk_compression=auto;
 
@@ -37,6 +33,9 @@ chown -R root:root $ramdisk/*;
 dump_boot;
 
 # begin ramdisk changes
+
+# init.rc
+insert_line init.rc 'kud' before 'on early-init' 'import /init.kud.rc';
 
 # end ramdisk changes
 
