@@ -2,7 +2,8 @@ on late-fs
     # Set BFQ's slice_idle to 0
     write /sys/block/mmcblk0/queue/iosched/slice_idle 0
     write /sys/block/mmcblk1/queue/iosched/slice_idle 0
-    write /sys/block/sda/queue/iosched/slice_idle 0
+    write /sys/block/dm-0/queue/iosched/slice_idle 0
+    write /sys/block/dm-1/queue/iosched/slice_idle 0
 
 # Run post-boot script after Qualcomm's post_boot shell script
 on property:init.svc.qcom-post-boot=stopped
@@ -18,3 +19,6 @@ on property:init.svc.qcom-post-boot=stopped
     write /sys/devices/system/cpu/cpu5/cpufreq/scaling_max_freq 1689600
     write /sys/devices/system/cpu/cpu6/cpufreq/scaling_max_freq 1689600
     write /sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq 1689600
+
+    # Set read ahead to 128 kb for external storage (rest are handled by qcom-post-boot)
+    write /sys/block/mmcblk1/queue/read_ahead_kb 128
