@@ -1,4 +1,6 @@
 build
-Image.gz-dtb
+kernel/Image.gz
 MinSignApk/
+treble-supported/*.dtb
+treble-unsupported/*.dtb
 *.zip

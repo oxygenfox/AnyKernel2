@@ -94,6 +94,12 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
   ui_print " ";
   if [ "$match" != 1 ]; then
     abort "Unsupported device. Aborting...";
+  else
+    if [ "$(file_getprop /system/build.prop ro.treble.enabled)" == "true" ]; then
+      dtb=/tmp/anykernel/treble-supported;
+    else
+      dtb=/tmp/anykernel/treble-unsupported;
+    fi;
   fi;
 fi;
 
@@ -103,6 +109,10 @@ for i in $($bb --list); do
 done;
 if [ $? != 0 -o -z "$(ls /tmp/anykernel/bin)" ]; then
   abort "Recovery busybox setup failed. Aborting...";
+fi;
+cat /tmp/anykernel/kernel/Image.gz $dtb/*.dtb > /tmp/anykernel/Image.gz-dtb;
+if [ $? != "0" ]; then
+  abort;
 fi;
 PATH="/tmp/anykernel/bin:$PATH" $bb ash /tmp/anykernel/anykernel.sh $2;
 if [ $? != "0" ]; then
