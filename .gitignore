@@ -1,6 +1,5 @@
 build
 kernel/Image.gz
-MinSignApk/
-treble-supported/*.dtb
-treble-unsupported/*.dtb
+zipsigner-2.1.jar
+*/msm8953-qrd-sku3-mido.dtb
 *.zip
