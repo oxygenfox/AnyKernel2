@@ -4,6 +4,7 @@ on late-fs
     write /sys/block/mmcblk1/queue/iosched/slice_idle 0
     write /sys/block/dm-0/queue/iosched/slice_idle 0
     write /sys/block/dm-1/queue/iosched/slice_idle 0
+    write /sys/block/sda/queue/iosched/slice_idle 0
 
 # Run post-boot script after Qualcomm's post_boot shell script
 on property:init.svc.qcom-post-boot=stopped
