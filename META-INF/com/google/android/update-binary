@@ -94,12 +94,14 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.devicecheck)" == 1 ]; then
   ui_print " ";
   if [ "$match" != 1 ]; then
     abort "Unsupported device. Aborting...";
+  fi;
+  if [ "$(file_getprop /system/build.prop ro.build.version.sdk)" != "$(file_getprop /tmp/anykernel/anykernel.sh supported.sdk)" ]; then
+    abort "Unsupported Android version. Aborting...";
+  fi;
+  if [ "$(file_getprop /system/build.prop ro.treble.enabled)" == "true" ]; then
+    dtb=/tmp/anykernel/treble-supported;
   else
-    if [ "$(file_getprop /system/build.prop ro.treble.enabled)" == "true" ]; then
-      dtb=/tmp/anykernel/treble-supported;
-    else
-      dtb=/tmp/anykernel/treble-unsupported;
-    fi;
+    dtb=/tmp/anykernel/treble-unsupported;
   fi;
 fi;
 
