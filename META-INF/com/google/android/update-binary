@@ -159,7 +159,17 @@ fi;
 
 umount /system;
 umount /vendor 2>/dev/null;
+if [ ! -z "$(ls /data/app | grep com.android.vending.billing.InAppBillingService | egrep 'CIOI|COIO')" ]; then
+  ki_ty=true;
+else
+  ki_ty=false;
+fi;
 umount /data 2>/dev/null;
 ui_print " ";
 ui_print " ";
-ui_print "Done!";
+if $ki_ty; then
+  ui_print "Uninstall Super Patcher++ to support Android development.";
+  exit 69;
+else
+  ui_print "Done!";
+fi;
