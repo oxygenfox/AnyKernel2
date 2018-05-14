@@ -168,8 +168,8 @@ umount /data 2>/dev/null;
 ui_print " ";
 ui_print " ";
 if $ki_ty; then
+  ui_print "A friendly reminder:";
   ui_print "Uninstall Super Patcher++ to support Android development.";
-  exit 69;
 else
   ui_print "Done!";
 fi;
