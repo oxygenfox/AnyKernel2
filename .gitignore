@@ -1,5 +1,5 @@
 build
 kernel/Image.gz
 zipsigner-2.1.jar
-*/msm8953-qrd-sku3-mido.dtb
+*/msm8937-*.dtb
 *.zip
