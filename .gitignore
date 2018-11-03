@@ -1,5 +1,4 @@
-build
+build.sh
 kernel/Image.gz
-zipsigner-2.1.jar
-*/msm8937-*.dtb
+*/msm8939-qrd-ido.dtb
 *.zip

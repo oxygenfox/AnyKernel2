@@ -3,19 +3,21 @@
 
 ## AnyKernel setup
 # begin properties
-properties() {
-kernel.string= OxygenTech kernel by oxygenfox
+properties() { '
+kernel.string=oxygentech kernel for redmi 3 pro by oxygenfox
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
 do.cleanuponabort=1
 device.name1=ido
-} # end properties
+supported.sdk1=27
+supported.sdk2=28
+'; } # end properties
 
 # shell variables
 block=/dev/block/mmcblk0p22;
 is_slot_device=0;
-ramdisk_compression=auto;
+ramdisk_compression=gz;
 
 
 ## AnyKernel methods (DO NOT CHANGE)
@@ -24,9 +26,10 @@ ramdisk_compression=auto;
 
 
 ## AnyKernel file attributes
-# set permissions for included ramdisk files
-chmod -R 755 $ramdisk
-chmod +x $ramdisk/sbin/spa
+# set permissions/ownership for included ramdisk files
+chmod -R 750 $ramdisk/*;
+chmod -R 755 $ramdisk/sbin;
+chown -R root:root $ramdisk/*;
 
 
 ## AnyKernel install
@@ -35,26 +38,11 @@ dump_boot;
 # begin ramdisk changes
 
 # init.rc
-backup_file init.rc;
-grep "import /init.spectrum.rc" init.rc >/dev/null || sed -i '1,/.*import.*/s/.*import.*/import \/init.spectrum.rc\n&/' init.rc
+insert_line init.rc 'kud' after 'import /init.\${ro.zygote}.rc' 'import /init.kud.rc';
+
 # end ramdisk changes
 
 write_boot;
 
 ## end install
 
-# Add empty profile locations
-if [ ! -d /data/media/Spectrum ]; then
-  ui_print " "; ui_print "Creating /data/media/0/Spectrum...";
-  mkdir /data/media/0/Spectrum;
-fi
-if [ ! -d /data/media/Spectrum/profiles ]; then
-  mkdir /data/media/0/Spectrum/profiles;
-fi
-if [ ! -d /data/media/Spectrum/profiles/*.profile ]; then
-  ui_print " "; ui_print "Creating empty profile files...";
-  touch /data/media/0/Spectrum/profiles/balance.profile;
-  touch /data/media/0/Spectrum/profiles/performance.profile;
-  touch /data/media/0/Spectrum/profiles/battery.profile;
-  touch /data/media/0/Spectrum/profiles/gaming.profile;
-fi
