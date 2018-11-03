@@ -1,0 +1,1 @@
+dont use image.gz.dtb or anyting use image.gz
